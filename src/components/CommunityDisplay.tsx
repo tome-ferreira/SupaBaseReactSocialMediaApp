@@ -31,6 +31,10 @@ export const CommunityDisplay = ({communityId}: Props) =>{
         queryFn: () => fetchCommunityPosts(communityId),
     })
 
+    if(!data || data.length < 1){
+        return <div className="text-center py-4">No posts in this community yet.</div>;
+    }
+
     if (isLoading)
         return <div className="text-center py-4">Loading communities...</div>;
 

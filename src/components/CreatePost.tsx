@@ -3,11 +3,14 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { supabase } from "../supabase-client";
 import { useAuth } from "../contexts/AuthContext";
 import { Community, fetchCommunities } from "./CommunitiesList";
+import { useNavigate } from "react-router";
 
 interface PostInput{
     title: string;
     content: string;
     avatar_url: string | null;
+    author_name: string;
+    author_uid: string;
     community_id?: number | null;
 }
 
@@ -18,6 +21,8 @@ const createPost = async (post: PostInput, imageFile: File) => {
 
 
     if(uploadError) throw new Error(uploadError.message);
+
+    console.log(post);
 
     const {data: publicUrlData} = supabase.storage.from("post-images").getPublicUrl(filePath);
 
@@ -33,6 +38,7 @@ export const CreatePost = () => {
     const [content, setContent] = useState<string>("");
     const [communityId, setCommunityId] = useState<number | null>(null);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const navigate = useNavigate();
 
     const {user} = useAuth();
 
@@ -42,17 +48,27 @@ export const CreatePost = () => {
     })
 
     const {mutate, isPending, isError} = useMutation({
-        mutationFn: (data: {post: PostInput, imageFile: File}) => { return createPost(data.post, data.imageFile)}
+        mutationFn: (data: {post: PostInput, imageFile: File}) => { return createPost(data.post, data.imageFile)},
+        onSuccess: () => {
+            navigate("/");
+        },
     });
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault()
+
+        if(!user){
+            return;
+        }
+
         if(!selectedFile) return;
         mutate({
             post: {
                 title, 
                 content, 
                 avatar_url: user?.user_metadata.avatar_url || null,
+                author_name: user?.user_metadata.full_name,
+                author_uid: user.id,
                 community_id: communityId
             }, 
             imageFile: selectedFile})

@@ -22,12 +22,21 @@ export const PostItem = ({ post }: Props) => {
               ) : (
                 <div className="w-[35px] h-[35px] rounded-full bg-gradient-to-tl from-[#8A2BE2] to-[#491F70]" />
               )}
-            <div className="flex flex-col flex-1">
-              <div className="text-[20px] leading-[22px] font-semibold mt-2">
-                {post.title}
+            
+            <div className="items-center space-x-2">
+              <div className="flex flex-col flex-1">
+                <div className="text-[20px] leading-[22px] mt-2 text-6xl font-bold  bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                  {post.author_name}
+                </div>
+              </div>
+              <div className="flex flex-col flex-1">
+                <div className="text-[20px] leading-[22px] font-semibold mt-2">
+                  {post.title}
+                </div>
               </div>
             </div>
           </div>
+          
 
           {/* Image Banner */}
           <div className="mt-2 flex-1">

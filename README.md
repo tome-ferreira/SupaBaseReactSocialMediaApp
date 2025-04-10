@@ -4,7 +4,9 @@ ToDo: Redirect para PostDetails depois de criar um post;
 Relações entre tabelas e tabela dos utiliadores;
 Login com Google me vez de GitHub;
 Conteagem de likes conta apenas os likes em vez de ambos os likes e os dislikes;
-ToDo: Resolver erro ao entrar numa community sem posts
+Resolver erro ao entrar numa community sem posts  
+Mostrar o autor do post
+Mostrar a comunity do post 
 
 # React + TypeScript + Vite
 
