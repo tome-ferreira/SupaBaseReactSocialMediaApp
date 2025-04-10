@@ -74,16 +74,20 @@ export const PostDetail = ({postId}: Props) => {
 
 
       
-
-
-      <div className="max-w-5xl mx-auto space-y-4">
-        <div key={data?.community_id} className="border border-white/10 p-4 rounded hover:-translate-y-1 transition transform">
-          <Link to={`/community/${data?.community_id}`} className="hover:underline">
-            <span className="text-2xl font-bold text-purple-500">{data?.community_name}</span> <span className="text-xl text-gray-400"> .community</span>
-          </Link>
-          <p className="text-gray-400 mt-2">More posts from this community</p>
+      {data?.community_id ? (
+          <div className="max-w-5xl mx-auto space-y-4">
+            <div key={data?.community_id} className="border border-white/10 p-4 rounded hover:-translate-y-1 transition transform">
+              <Link to={`/community/${data?.community_id}`} className="hover:underline">
+                <span className="text-2xl font-bold text-purple-500">{data?.community_name}</span> <span className="text-xl text-gray-400"> .community</span>
+              </Link>
+              <p className="text-gray-400 mt-2">More posts from this community</p>
+            </div>
         </div>
-      </div>
+        ) : (
+          <div></div>
+        )}
+
+      
 
       <CommentSection postId={postId} />
     </div>
